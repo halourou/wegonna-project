@@ -10,6 +10,7 @@ NameTBD is a clone of Asana built on Rails and Backbone. Users can:
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
 Minimal MVP:
+
 Users can create accounts
 
 Users can sign in and out
@@ -62,9 +63,7 @@ Changes to shared or followed projects/tasks arrive as inbox messages to other u
 ## Implementation Timeline
 
 ### Phase 1: User Authentication, Workspace/Projects/Tasks Creation (~2 days)
-I will implement user authentication in Rails based on the practices learned at
-App Academy. By the end of this phase, users will be able to create workspaces, projects, and tasks that are linked to one another in Rails. The setup will be similar
-to the music app we created by the end of this phase.
+I will implement user authentication in Rails. By the end of this phase, users will be able to create workspaces, projects, and tasks that are linked to one another in Rails. 
 
 [Details][phase-one]
 
@@ -94,7 +93,7 @@ task arrive as messages in user's inbox.
 [Details][phase-five]
 
 ### Bonus Features (TBD)
-Add flying unicorns to celebrate productivity! (a real Asana feature I just discovered!)
+Add flying unicorns to celebrate productivity! (a real Asana feature)
 Subtasks
 Project stats and progress charts
 Calendar, Attachments, or Message Board features
