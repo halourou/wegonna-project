@@ -1,6 +1,7 @@
 module Api
   class WorkspacesController < ApplicationController
     #for now, not worrying about whether user belongs to board, just creating...
+
     def create
       @workspace = Workspace.new(workspace_params)
 
@@ -34,7 +35,7 @@ module Api
 
     private
 
-    def workspace_params  # permits only the workspace' name to be modified through web
+    def workspace_params
       params.require(:workspace).permit(:name)
     end
 
