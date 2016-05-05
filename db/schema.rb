@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160504235608) do
     t.integer  "creator_id",                  null: false
     t.integer  "assignee_id"
     t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "tasks", ["assignee_id"], name: "index_tasks_on_assignee_id", using: :btree
