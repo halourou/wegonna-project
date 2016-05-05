@@ -10,10 +10,20 @@ module Api
         render json: @task.errors.full_messages, status: :unprocessable_entity
       end
     end
+    
+    def update
+      @task = Task.find(params[:id])
+
+      if @task.update(task_params)
+        render json: @task
+      else
+        render json: @task.errors.full_messages, status: :unprocessable_entity
+      end
+    end
 
     def show
-      @task = Task.new(params[:id])
-      render :show
+      @task = Task.find(params[:id])
+      render json: @task
     end
 
     def destroy
@@ -25,7 +35,7 @@ module Api
     private
 
     def task_params
-      params.require(:task).permit(:name, :creator_id, project_id)
+      params.require(:task).permit(:name, :creator_id, :project_id)
     end
 
   end
