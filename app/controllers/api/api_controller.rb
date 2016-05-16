@@ -1,32 +1,15 @@
 module Api
-  class TasksController < ApplicationController
+  class ApiController < ApplicationController
+    before_action :require_signed_in!
 
-    def create
-      @task = Task.new(task_params)
-
-      if @task.save
-        render json: @task
-      else
-        render json: @task.errors.full_messages, status: :unprocessable_entity
+    def require_signed_in!
+      unless signed_in?
+        render json: ["Please sign in"]
       end
     end
 
-    def show
-      @task = Task.find(params[:id])
-      render json: @task
+    def require_workspace_member!
+      redirect_to new_session_url unless current_workspace.is_member?(current_user)
     end
-
-    def destroy
-      @task = Task.find(params[:id])
-      @task.try(:destroy)
-      render json: {}
-    end
-
-    private
-
-    def task_params
-      params.require(:task).permit(:name, :creator_id, project_id)
-    end
-
   end
 end
