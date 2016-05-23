@@ -1,44 +1,16 @@
-class User < ActiveRecord::Base
-  validates :email, :session_token, presence: true
-  validates :password, length: { minimum: 5, allow_nil: true }
-  validates :email, uniqueness: true
+class Task < ActiveRecord::Base
+  validates :name, :creator_id, presence: true
 
-  has_many :user_workspaces
-  has_many :workspaces, :through => :user_workspaces, source: :workspace
+  belongs_to :project
 
-  has_many :created_tasks,
+  has_one :workspace, :through => :project, source: :workspace
+
+  belongs_to :creator,
   class_name: "Task",
   foreign_key: "creator_id"
 
-  has_many :assigned_tasks,
+  belongs_to :assignee,
   class_name: "Task",
   foreign_key: "assignee_id"
-
-  attr_reader :password
-  after_initialize :ensure_session_token
-
-  def self.find_by_credentials(user_params)
-    user = User.find_by_email(user_params[:email])
-    user.try(:is_password?, user_params[:password]) ? user : nil
-  end
-
-  def password=(password)
-    @password = password
-    self.password_digest = BCrypt::Password.create(password)
-  end
-
-  def is_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password)
-  end
-
-  def reset_token!
-    self.session_token = SecureRandom.urlsafe_base64(16)
-    self.save!
-    self.session_token
-  end
-
-  def ensure_session_token
-    self.session_token ||= SecureRandom.urlsafe_base64(16)
-  end
 
 end
