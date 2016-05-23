@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504235608) do
+ActiveRecord::Schema.define(version: 20160523044217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,12 @@ ActiveRecord::Schema.define(version: 20160504235608) do
     t.string   "session_token",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "provider"
+    t.string   "uid"
   end
+
+  add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
 
   create_table "workspaces", force: :cascade do |t|
     t.string   "name",       null: false
